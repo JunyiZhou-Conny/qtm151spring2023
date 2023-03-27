@@ -99,8 +99,9 @@ Try it yourself!
 -- Select a new driver id (needs to be unique)
 -- Make sure to deparate arguments by a semicolon!
 
-
-
+INSERT INTO drivers VALUES(5, 'Conny Zhou', 'Earth', 73);
+--Don't put the name in double quotation, use the single quotation
+--Include the semicolon to avoid syntax issue
 -- SQLBook: Markup
 # <span style="color:darkblue"> II. Dataset Operations </span>
 
@@ -186,7 +187,8 @@ Try it yourself!
 with more than 60 victories
 -- SQLBook: Code
 -- Write your own code!
-
+SELECT driver_id, nationality FROM drivers
+WHERE (victories > 60);
 
 
 -- SQLBook: Markup
