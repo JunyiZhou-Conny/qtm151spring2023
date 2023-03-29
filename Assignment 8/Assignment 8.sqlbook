@@ -32,8 +32,8 @@ HINT: Include any column names with upper case in doube quotations, <br> e.g.
 -- SQLBook: Code
 -- Write your own code
 
-DROP TABLE IF EXISTS results;
-CREATE TABLE results (
+DROP TABLE IF EXISTS lap_times;
+CREATE TABLE lap_times (
     "raceId"   int,
     "driverId"  int,
     lap       int, 
@@ -42,7 +42,7 @@ CREATE TABLE results (
     milliseconds int
 );
 
- COPY results
+ COPY lap_times
  FROM '/private/tmp/data_raw/lap_times.csv'
  WITH (DELIMITER ',', FORMAT csv, HEADER MATCH);
 
@@ -120,7 +120,8 @@ HINT: Include "driverId" in quotations since it has a mix of <br>
 upper case and lower case letters
 -- SQLBook: Code
 -- Write your own code
-COUNT(DISTINCT )
+SELECT COUNT(DISTINCT "driverId") AS num_distinct_driverId  
+FROM drivers;
 
 -- SQLBook: Markup
 <font size = "5">
@@ -137,7 +138,11 @@ HINT: Include "driverId" in quotations since it has a mix of <br>
 upper case and lower case letters
 -- SQLBook: Code
 -- Write your own code
-
+SELECT "driverId",
+       AVG(milliseconds) AS mean_milliseconds
+FROM lap_times
+GROUP BY "driverId"
+ORDER BY SUM(milliseconds);
 
 
 -- SQLBook: Markup
@@ -156,5 +161,8 @@ HINT: Include "driverId" in quotations since it has a mix of <br>
 upper case and lower case letters
 -- SQLBook: Code
 -- Write your own code
-
+SELECT * 
+FROM lap_times
+LEFT JOIN drivers
+ON lap_times."driverId" = drivers."driverId";
 
